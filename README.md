@@ -22,11 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ... -->
-## Userテーブル
+## Usersテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|name|string|null: false, unique: true|
+|name|string|null: false, unique: true, index: true|
 |e-mail|text|null: false, unique: true|
 |password|text|null: false, unique: true|
 |group_id|integer||
@@ -34,38 +34,39 @@ Things you may want to cover:
 ### Association
 - has_many :groups, through: :groups_users
 - has_many :messages
+- has_many :groups_users
 
-## Groupテーブル
+## Groupsテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|group_name|text|null: false, unique: true|
-|user_id|integer|null: false, foreign_key: true|
-|chat_id|integer|null: false, foreign_key: true|
+|name|text|null: false, unique: true|
 
 ### Association
 - has_many :users, through: :groups_users
 - has_many :messages
+- has_many :groups_users
 
 ## GroupsUsersテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|user_id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
+|user|references|null: false, foreign_key: true|
+|group|references|null: false, foreign_key: true|
 
 ### Association
 - belongs_to :group
 - belongs_to :user
 
-## Messageテーブル
+## Messagesテーブル
 
 |Column|Type|Options|
 |------|----|-------|
 |user|references|null: false, foreign_key: true|
-|group_id|integer||
+|group|references|null: false, foreign_key: true|
 |body|text||
 |image|string||
 
 ### Association
 - belongs_to :group
+- belongs_to :user
