@@ -29,7 +29,6 @@ Things you may want to cover:
 |name|string|null: false, unique: true, index: true|
 |e-mail|text|null: false, unique: true|
 |password|text|null: false, unique: true|
-|group_id|integer||
 
 ### Association
 - has_many :groups, through: :groups_users
