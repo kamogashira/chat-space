@@ -1,0 +1,8 @@
+@mixin text($color, $font-size) {
+  font-weight : bold;
+  color : $color;
+  font-size : $font-size;
+}
+$text-color1 : #ffffff;
+$text-color2 : #434a54;
+$blue-color : #38AEF0;
