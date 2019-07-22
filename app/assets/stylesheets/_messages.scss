@@ -105,7 +105,7 @@
     padding-left: 10px;
   }
 }
-.message__text{
+.message__lower__content{
   @include text($text-color2, 14px);
   font-weight: normal;
 }
