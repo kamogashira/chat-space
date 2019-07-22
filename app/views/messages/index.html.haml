@@ -4,25 +4,20 @@
     .header
       .header__left
         .header__left__group
-          Group
+          =@group.name
         .header__left__members
-          Member
+          Member : 
+          - @group.group_users.each do |group_user|
+            = group_user.user.name
       =link_to "", class: "header__btn" do
         EDIT
     .messages
-      .message
-        .message__upper
-          .message__upper__name
-            Name
-          .message__upper__date
-            Date
-        .message__text
-          Text
+      = render @messages
     .form
-      %form.box
+      = form_for [@group, @message], html: { class: 'box', id: 'box' } do |f|
         .box__input
-          %input.box__input__text{type:"text", name:"message", placeholder:'type a message'}
-          %label.box__input__upload-label{for: "upload-icon"}
-            =fa_icon "image"
-            %input.box__input__upload-label__icon{type: "file", id: "upload-icon"}
-        %input.box__btn{type:"submit", value:"Send"}
+          = f.text_field :content, class: 'box__input__text', placeholder: 'type a message'
+          = f.label :image, class: 'box__input__upload-label' do
+            = fa_icon 'picture-o'
+            = f.file_field :image, class: 'box__input__upload-label__icon'
+        = f.submit 'Send', class: 'box__btn'
