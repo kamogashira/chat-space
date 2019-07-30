@@ -43,13 +43,14 @@ $(function(){
       var html = buildHTML(data);
       $('.messages').append(html);
       $('.box__input__text').val('');
+      $('.box__input__upload-label__icon').val('');
       scrollBottom();
     })
     .fail(function(){
       alert('error');
     })
     .always(function(data){
-      $('.box__btn').prop('disabled', false);　//ここで解除している
+      $('.box__btn').prop('disabled', false);
     })
   })
 })
