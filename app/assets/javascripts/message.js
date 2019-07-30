@@ -18,10 +18,19 @@ $(function(){
                 </div>`
   return html;
   }
+
+  function scrollBottom(){
+    var target = $('.message').last();
+    var position = target.offset().top + $('.messages').scrollTop();
+    $('.messages').animate({
+      scrollTop: position
+    }, 300, 'swing');
+  }
+
   $('#box').on('submit', function(e){
     e.preventDefault();
     var formData = new FormData(this);
-    var url = $(this).attr('action')
+    var url = $(this).attr('action');
     $.ajax({
       url: url,
       type: "POST",
@@ -32,15 +41,14 @@ $(function(){
     })
     .done(function(data){
       var html = buildHTML(data);
-      $('.messages').append(html)
-      $('.box__input__text').val('')
+      $('.messages').append(html);
+      $('.box__input__text').val('');
+      scrollBottom();
     })
     .fail(function(){
       alert('error');
     })
     .always(function(data){
-      // var result = $('.box__btn').is(':disabled');
-      // console.log(result)
       $('.box__btn').prop('disabled', false);　//ここで解除している
     })
   })
