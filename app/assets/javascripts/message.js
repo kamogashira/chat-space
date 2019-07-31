@@ -44,8 +44,6 @@ $(function(){
     .done(function(data){
       var html = buildHTML(data);
       $('.messages').append(html);
-      // $('.box__input__text').val('');
-      // $('.box__input__upload-label__icon').val('');
       $('#box')[0].reset();
       scrollBottom();
     })
