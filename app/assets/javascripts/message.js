@@ -23,8 +23,7 @@ $(function(){
 
   function scrollBottom(){
     var target = $('.message').last();
-    // var position = target.offset().top + $('.messages').scrollTop();
-    var position = target.offset().top;
+    var position = target.offset().top + $('.messages').scrollTop();
     $('.messages').animate({
       scrollTop: position
     }, 300, 'swing');
@@ -45,8 +44,9 @@ $(function(){
     .done(function(data){
       var html = buildHTML(data);
       $('.messages').append(html);
-      $('.box__input__text').val('');
-      $('.box__input__upload-label__icon').val('');
+      // $('.box__input__text').val('');
+      // $('.box__input__upload-label__icon').val('');
+      $('#box')[0].reset();
       scrollBottom();
     })
     .fail(function(){
