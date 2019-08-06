@@ -18,7 +18,7 @@ $(function() {
     var html = `<div class='chat-group-user clearfix js-chat-member' id='chat-group-user'>
                   <input name='group[user_ids][]' type='hidden' value=${user_id}>
                     <p class='chat-group-user__name'>${user_name}</p>
-                    <div class='user-search-remove chat-group-user__btn chat-group-user__btn--remove js-remove-btn data-user-id=${user_id}'>削除</div>
+                    <div class='user-search-remove chat-group-user__btn chat-group-user__btn--remove js-remove-btn' data-user-id="${ user_id }" data-user-name="${ user_name }">削除</div>
                 </div>`
     user_list.append(html);
   }
@@ -50,10 +50,12 @@ $(function() {
       });
     }
   });
+  var add_user_ids = [];
   search_list.on("click", ".chat-group-user__btn", function() {
     var user_id = $(this).data('userId');
     var user_name = $(this).data('userName');
-　  if($.inArray(user_name,gon.group_name_list) === -1) {
+    add_user_ids.push(user_id);
+　  if($.inArray(user_id,gon.group_id_list) === -1) {
       $(this.previousElementSibling).remove();
       $(this).remove();
       appendUserToGroup(user_id, user_name);
@@ -61,10 +63,6 @@ $(function() {
   });
 
   user_list.on("click", ".user-search-remove.chat-group-user__btn.chat-group-user__btn--remove.js-remove-btn", function() {
-    var selected_user_name = $(this.previousElementSibling).text();
-    var users = gon.users.filter(function(user){
-      return user.name !== selected_user_name;
-    })
     $(this.previousElementSibling).remove();
     $(this).remove();
   });

@@ -21,10 +21,10 @@ class GroupsController < ApplicationController
   def edit
     gon.group = @group
     gon.users = @group.users
-    gon.group_name_list = []
+    gon.group_id_list = []
     gon.users.each do |user|
-      name = user.name
-      gon.group_name_list << name
+      id = user.id
+      gon.group_id_list << id
     end
   end
 
