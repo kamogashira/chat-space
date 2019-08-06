@@ -19,6 +19,13 @@ class GroupsController < ApplicationController
   end
 
   def edit
+    gon.group = @group
+    gon.users = @group.users
+    gon.group_id_list = []
+    gon.users.each do |user|
+      id = user.id
+      gon.group_id_list << id
+    end
   end
 
   def update
