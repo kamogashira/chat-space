@@ -55,16 +55,13 @@ $(function(){
   
   var reloadMessages = function() {
     var last_message_id = $('.message:last').data('messageId');
-    console.log(last_message_id);
     $.ajax({
       url: 'api/messages',
       type: 'get',
       dataType: 'json',
       data: {id: last_message_id}
     })
-    .done(function(messages) {
-      console.log(messages);
-      
+    .done(function(messages) {   
       var insertHTML = '';
       if (messages.length !== 0) {
         messages.forEach(function(message){
@@ -76,7 +73,6 @@ $(function(){
       $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
     })
     .fail(function() {
-      console.log('error');
       alert('自動更新に失敗しました');
     });
     
