@@ -7,6 +7,8 @@ class GroupsController < ApplicationController
   def new
     @group = Group.new
     @group.users << current_user
+    @users = @group.users
+    
   end
 
   def create
@@ -19,17 +21,12 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    gon.group = @group
-    gon.users = @group.users
-    gon.group_id_list = []
-    gon.users.each do |user|
-      id = user.id
-      gon.group_id_list << id
-    end
+    @users = @group.users.where.not(id: current_user.id)
   end
 
   def update
     if @group.update(group_params)
+      # binding.pry
       redirect_to group_messages_path(@group), notice: 'グループを編集しました'
     else
       render :edit

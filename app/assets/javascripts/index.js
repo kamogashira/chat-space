@@ -23,47 +23,51 @@ $(function() {
     user_list.append(html);
   }
 
-  $("#user-search-field.chat-group-form__input").on("keyup", function() {
-    var input = $("#user-search-field.chat-group-form__input").val();
-    if (input != ""){
-      $.ajax({
-        type: 'GET',
-        url: '/users',
-        data: { keyword: input },
-        dataType: 'json'
-      })
-      .done(function(users) {
-        $("#user-search-result").empty();
-        if (users.length !== 0) {
-          users.forEach(function(user){
-            searchUser(user);
-          });
-          return users
-        }
-        else {
-          appendErrMsgToHTML("一致するユーザーはいません");
-        }
+  $(function () {
+    $("#user-search-field.chat-group-form__input").on("keyup", function() {
+      var input = $("#user-search-field.chat-group-form__input").val();
+      if (input != ""){
+        $.ajax({
+          type: 'GET',
+          url: '/users',
+          data: { keyword: input },
+          dataType: 'json'
+        })
+        .done(function(users) {
+          $("#user-search-result").empty();
+          if (users.length !== 0) {
+            users.forEach(function(user){
+              searchUser(user);
+            });
+            return users
+          }
+          else {
+            appendErrMsgToHTML("一致するユーザーはいません");
+          }
 
-      })
-      .fail(function() {
-        alert('error');
-      });
-    }
+        })
+        .fail(function() {
+          alert('error');
+        });
+      }
+    });
   });
-  var add_user_ids = [];
-  search_list.on("click", ".chat-group-user__btn", function() {
-    var user_id = $(this).data('userId');
-    var user_name = $(this).data('userName');
-    add_user_ids.push(user_id);
-　  if($.inArray(user_id,gon.group_id_list) === -1) {
+
+  $(function () {
+    search_list.on("click", ".chat-group-user__btn", function() {
+      var user_id = $(this).data('userId');
+      var user_name = $(this).data('userName');
       $(this.previousElementSibling).remove();
       $(this).remove();
       appendUserToGroup(user_id, user_name);
-    }
+    });
   });
 
-  user_list.on("click", ".user-search-remove.chat-group-user__btn.chat-group-user__btn--remove.js-remove-btn", function() {
-    $(this.previousElementSibling).remove();
-    $(this).remove();
+  $(function (users) {
+    user_list.on("click", ".user-search-remove.chat-group-user__btn.chat-group-user__btn--remove.js-remove-btn", function() {
+      var test = $(this).parent();
+      $(this).parent().remove();
+
+    });
   });
 });
